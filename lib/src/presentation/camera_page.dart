@@ -29,6 +29,9 @@ class CameraCamera extends StatefulWidget {
   ///permission on Android
   final bool enableAudio;
 
+  ///Enable show cancel button ( default = false )
+  final bool enableCancel;
+
   CameraCamera({
     Key? key,
     this.resolutionPreset = ResolutionPreset.ultraHigh,
@@ -37,6 +40,7 @@ class CameraCamera extends StatefulWidget {
     this.flashModes = FlashMode.values,
     this.enableZoom = true,
     this.enableAudio = false,
+    this.enableCancel = false,
   }) : super(key: key);
 
   @override
@@ -87,6 +91,7 @@ class _CameraCameraState extends State<CameraCamera> {
                   children: [
                     CameraCameraPreview(
                       enableZoom: widget.enableZoom,
+                      enableCancel: widget.enableCancel,
                       key: UniqueKey(),
                       controller: controller,
                     ),

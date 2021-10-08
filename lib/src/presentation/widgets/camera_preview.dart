@@ -6,11 +6,14 @@ class CameraCameraPreview extends StatefulWidget {
   final void Function(String value)? onFile;
   final CameraCameraController controller;
   final bool enableZoom;
+  final bool? enableCancel;
+
   CameraCameraPreview({
     Key? key,
     this.onFile,
     required this.controller,
     required this.enableZoom,
+    this.enableCancel,
   }) : super(key: key);
 
   @override
@@ -64,9 +67,32 @@ class _CameraCameraPreviewState extends State<CameraCameraPreview> {
                           ),
                         ),
                       ),
-                    if (widget.controller.flashModes.length > 1)
+                    if (widget.enableCancel == true)
                       Align(
                         alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(32.0),
+                          child: TextButton(
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateProperty.all<Color>(
+                                  Colors.grey.shade200),
+                            ),
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.6)),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ),
+                      ),
+                    if (widget.controller.flashModes.length > 1)
+                      Align(
+                        alignment: widget.enableCancel == true
+                            ? Alignment.topLeft
+                            : Alignment.bottomLeft,
                         child: Padding(
                           padding: const EdgeInsets.all(32.0),
                           child: CircleAvatar(
