@@ -36,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
         context,
         MaterialPageRoute(
             builder: (_) => CameraCamera(
+                  enableCancel: true,
                   onFile: (file) {
                     photos.add(file);
                     Navigator.pop(context);

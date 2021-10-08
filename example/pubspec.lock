@@ -7,7 +7,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -25,9 +25,11 @@ packages:
   camera_camera:
     dependency: "direct main"
     description:
-      path: ".."
-      relative: true
-    source: path
+      path: "."
+      ref: "feature/add_cancel_button"
+      resolved-ref: dfa9515997d9a76a6e187a67d5c02f1e8a340a05
+      url: "https://github.com/smart145/camera_camera"
+    source: git
     version: "2.0.2"
   camera_platform_interface:
     dependency: transitive
@@ -162,7 +164,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   stack_trace:
     dependency: transitive
     description:
@@ -204,7 +206,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.19"
+    version: "0.3.0"
   typed_data:
     dependency: transitive
     description:
