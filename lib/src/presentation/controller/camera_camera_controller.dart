@@ -161,6 +161,4 @@ class CameraCameraController {
     await _controller.dispose();
     return;
   }
-
-  CameraController get originalController => _controller;
 }

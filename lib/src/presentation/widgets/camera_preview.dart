@@ -57,36 +57,33 @@ class _CameraCameraPreviewState extends State<CameraCameraPreview> {
                 child: Stack(
                   children: [
                     Center(
-                      child:
-                          CameraPreview(widget.controller.originalController),
+                      child: widget.controller.buildPreview(),
                     ),
                     if (widget.enableZoom)
                       Positioned(
-                          bottom: 105,
-                          left: 0.0,
-                          right: 0.0,
-                          child: RotatedBox(
-                            quarterTurns: 1,
-                            child: CircleAvatar(
-                              radius: 20,
-                              backgroundColor: Colors.black.withOpacity(0.6),
-                              child: IconButton(
-                                icon: Center(
-                                  child: Text(
-                                    "${camera.zoom.toStringAsFixed(1)}x",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                    ),
-                                  ),
+                        bottom: 105,
+                        left: 0.0,
+                        right: 0.0,
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Colors.black.withOpacity(0.6),
+                          child: IconButton(
+                            icon: Center(
+                              child: Text(
+                                "${camera.zoom.toStringAsFixed(1)}x",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
                                 ),
-                                splashRadius: 24,
-                                onPressed: () {
-                                  widget.controller.zoomChange();
-                                },
                               ),
                             ),
-                          )),
+                            splashRadius: 24,
+                            onPressed: () {
+                              widget.controller.zoomChange();
+                            },
+                          ),
+                        ),
+                      ),
                     if (widget.enableCancel == true)
                       Align(
                         alignment: Alignment.bottomLeft,
