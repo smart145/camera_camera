@@ -1,12 +1,14 @@
 import 'package:camera/camera.dart';
 import 'package:camera_camera/src/shared/entities/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'camera_camera_status.dart';
 
 class CameraCameraController {
   ResolutionPreset resolutionPreset;
   CameraDescription cameraDescription;
+  DeviceOrientation? deviceOrientation;
   List<FlashMode> flashModes;
   void Function(String path) onPath;
   bool enableAudio;
@@ -26,6 +28,12 @@ class CameraCameraController {
   }) {
     _controller = CameraController(cameraDescription, resolutionPreset,
         enableAudio: enableAudio);
+  }
+
+  void setOrientation(Orientation orientation) {
+    this.deviceOrientation = orientation == Orientation.portrait
+        ? DeviceOrientation.portraitUp
+        : DeviceOrientation.landscapeLeft;
   }
 
   void init() async {
@@ -153,4 +161,6 @@ class CameraCameraController {
     await _controller.dispose();
     return;
   }
+
+  CameraController get originalController => _controller;
 }

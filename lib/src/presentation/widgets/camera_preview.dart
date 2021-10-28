@@ -1,6 +1,8 @@
+import 'package:camera_camera/camera_camera.dart';
 import 'package:camera_camera/src/presentation/controller/camera_camera_controller.dart';
 import 'package:camera_camera/src/presentation/controller/camera_camera_status.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CameraCameraPreview extends StatefulWidget {
   final void Function(String value)? onFile;
@@ -23,13 +25,23 @@ class CameraCameraPreview extends StatefulWidget {
 class _CameraCameraPreviewState extends State<CameraCameraPreview> {
   @override
   void initState() {
-    widget.controller.init();
     super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    widget.controller.init();
   }
 
   @override
   void dispose() {
     widget.controller.dispose();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     super.dispose();
   }
 
@@ -44,43 +56,54 @@ class _CameraCameraPreviewState extends State<CameraCameraPreview> {
                 },
                 child: Stack(
                   children: [
-                    Center(child: widget.controller.buildPreview()),
+                    Center(
+                      child:
+                          CameraPreview(widget.controller.originalController),
+                    ),
                     if (widget.enableZoom)
                       Positioned(
-                        bottom: 96,
-                        left: 0.0,
-                        right: 0.0,
-                        child: CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.black.withOpacity(0.6),
-                          child: IconButton(
-                            icon: Center(
-                              child: Text(
-                                "${camera.zoom.toStringAsFixed(1)}x",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12),
+                          bottom: 105,
+                          left: 0.0,
+                          right: 0.0,
+                          child: RotatedBox(
+                            quarterTurns: 1,
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Colors.black.withOpacity(0.6),
+                              child: IconButton(
+                                icon: Center(
+                                  child: Text(
+                                    "${camera.zoom.toStringAsFixed(1)}x",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                                splashRadius: 24,
+                                onPressed: () {
+                                  widget.controller.zoomChange();
+                                },
                               ),
                             ),
-                            onPressed: () {
-                              widget.controller.zoomChange();
-                            },
-                          ),
-                        ),
-                      ),
+                          )),
                     if (widget.enableCancel == true)
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Padding(
                           padding: const EdgeInsets.all(32.0),
-                          child: TextButton(
+                          child: ElevatedButton(
                             style: ButtonStyle(
                               overlayColor: MaterialStateProperty.all<Color>(
-                                  Colors.grey.shade200),
+                                  Colors.black.withOpacity(0.8)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.black.withOpacity(0.6)),
                             ),
                             child: Text(
                               'Cancel',
                               style: TextStyle(
-                                  color: Colors.black.withOpacity(0.6)),
+                                color: Colors.white,
+                              ),
                             ),
                             onPressed: () {
                               Navigator.of(context).pop();
@@ -114,6 +137,16 @@ class _CameraCameraPreviewState extends State<CameraCameraPreview> {
                       alignment: Alignment.bottomCenter,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 24),
+                        child: CircleAvatar(
+                          radius: 35,
+                          backgroundColor: Colors.grey.shade300,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 29),
                         child: InkWell(
                           onTap: () {
                             widget.controller.takePhoto();
