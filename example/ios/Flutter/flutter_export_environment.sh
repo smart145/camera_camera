@@ -1,7 +1,8 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/gabrielsavio/fvm/versions/2.0.4"
-export "FLUTTER_APPLICATION_PATH=/Users/gabrielsavio/Developer/Flutter/Packages/camera_camera/example"
+export "FLUTTER_ROOT=/home/dariel/snap/flutter/common/flutter"
+export "FLUTTER_APPLICATION_PATH=/home/dariel/Projects/camera_camera/example"
+export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"
 export "SYMROOT=${SOURCE_ROOT}/../build/ios"

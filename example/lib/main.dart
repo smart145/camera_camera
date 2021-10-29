@@ -35,13 +35,22 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (_) => CameraCamera(
-                  onFile: (file) {
-                    photos.add(file);
-                    Navigator.pop(context);
-                    setState(() {});
-                  },
-                )));
+          builder: (_) =>
+              /*OrientationBuilder(
+            builder: (_, orientation) => RotatedBox(
+                  quarterTurns: orientation == Orientation.landscape ? -1 : 0,
+                  child:*/
+              CameraCamera(
+            enableCancel: true,
+            onFile: (file) {
+              photos.add(file);
+              Navigator.pop(context);
+              setState(() {});
+            },
+          ),
+          /*))
+      )*/
+        ));
   }
 
   @override
